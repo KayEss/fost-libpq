@@ -1,0 +1,18 @@
+
+
+rule pgdll ( libs * )
+{
+    for local curlib in $(libs)
+    {
+        local prefix = "C:\\Program Files\\PostgreSQL\\8.3\\bin\\" ;
+        local suffix = ".dll" ;
+        local name = $(prefix) $(curlib) $(suffix) ;
+
+        lib $(curlib) : : <file>$(name:J) ;
+    }
+
+    install ../dist/bin : $(libs) ;
+}
+
+pgdll comerr32 gssapi32 k5sprt32 krb5_32 libiconv2 libintl3 libpq ;
+
