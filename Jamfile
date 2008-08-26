@@ -2,13 +2,15 @@
 
 rule pgdll ( libs * )
 {
+    lib $(libs) ;
+
     for local curlib in $(libs)
     {
         local prefix = "C:\\Program Files\\PostgreSQL\\8.3\\bin\\" ;
         local suffix = ".dll" ;
         local name = $(prefix) $(curlib) $(suffix) ;
 
-        lib $(curlib) : : <file>$(name:J) ;
+        lib $(curlib) : : <file>$(name:J) <toolset>msvc ;
     }
 
     install ../dist/bin : $(libs) ;
