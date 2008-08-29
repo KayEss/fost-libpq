@@ -10,7 +10,7 @@ rule pgdll ( libs * )
         local suffix = ".dll" ;
         local name = $(prefix) $(curlib) $(suffix) ;
 
-        lib $(curlib) : : <file>$(name:J) <target-os>windows;
+        lib $(curlib) : : <file>$(name:J) <target-os>windows ;
     }
 
     install ../dist/bin : $(libs) ;
