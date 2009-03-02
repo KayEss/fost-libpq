@@ -1,15 +1,17 @@
 
+# Works around a bug in boost.build
+project PostgreSQL : requirements -<threading>multi ;
 
 rule pgdll ( libs * )
 {
     lib $(libs) ;
 
+    local prefix = "C:\\Program Files\\PostgreSQL\\8.3\\bin\\" ;
+    local suffix = ".dll" ;
+
     for local curlib in $(libs)
     {
-        local prefix = "C:\\Program Files\\PostgreSQL\\8.3\\bin\\" ;
-        local suffix = ".dll" ;
         local name = $(prefix) $(curlib) $(suffix) ;
-
         lib $(curlib) : : <file>$(name:J) <target-os>windows ;
     }
 
