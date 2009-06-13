@@ -1,0 +1,20 @@
+#!/bin/bash
+cd `dirname $0`
+svn up .
+
+cd libpqxx
+if ./autogen.sh
+then {
+    if make
+    then {
+        echo Everything built OK
+    } else {
+        echo Build step failed
+        exit 1
+    }
+    fi
+} else {
+    echo Configuration step failed
+    exit 1
+}
+fi

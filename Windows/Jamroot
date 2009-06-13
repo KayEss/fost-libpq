@@ -1,6 +1,9 @@
 
-# Works around a bug in boost.build
-project PostgreSQL : requirements -<threading>multi ;
+project PostgreSQL
+    :
+        requirements
+        -<threading>multi # Works around a bug in boost.build
+    ;
 
 rule pgdll ( libs * )
 {
@@ -15,7 +18,7 @@ rule pgdll ( libs * )
         lib $(curlib) : : <file>$(name:J) <target-os>windows ;
     }
 
-    install ../dist/bin : $(libs) ;
+    install ../dist/bin : <target-os>windows:$(libs) ;
 }
 
 pgdll comerr32 gssapi32 k5sprt32 krb5_32 libiconv2 libintl3 libpq ;
