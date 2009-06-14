@@ -5,6 +5,9 @@ project PostgreSQL
         -<threading>multi # Works around a bug in boost.build
     ;
 
+lib libpq : : <name>pq ;
+lib libpq : : <file>"C:/Program Files/PostgreSQL/8.3/lib/libpq.lib" <target-os>windows ;
+
 rule pgdll ( libs * )
 {
     lib $(libs) ;
@@ -18,8 +21,7 @@ rule pgdll ( libs * )
         lib $(curlib) : : <file>$(name:J) <target-os>windows ;
     }
 
-    install ../dist/bin : <target-os>windows:$(libs) ;
+    install ../dist/bin : $(libs) ;
 }
-
-pgdll comerr32 gssapi32 k5sprt32 krb5_32 libiconv2 libintl3 libpq ;
+pgdll comerr32 gssapi32 k5sprt32 krb5_32 libiconv2 libintl3 ;
 
