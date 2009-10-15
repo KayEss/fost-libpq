@@ -9,7 +9,7 @@ If you're not using the Fost libraries then you'll want to take a look at the Ja
 
 You will need Postgres and you will need the Postgres development files. On Ubuntu you will want to make sure you the right packages installed.
 
-    $ sudo apt-get install automake libpq-dev libtool
+    $ sudo apt-get install automake libpq-dev libtool make
 
 The library can be configured through running the configure script. This will also do a build to make sure that everything is as it should be.
 
