@@ -3,7 +3,7 @@ cd `dirname $0`
 svn up .
 
 cd libpqxx
-if ./autogen.sh --with-tr1=boost
+if ./configure --with-tr1=boost
 then {
     if make
     then {
