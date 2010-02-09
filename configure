@@ -5,14 +5,8 @@ svn up .
 cd libpqxx
 if ./configure --with-tr1=boost
 then {
-    if make
-    then {
-        echo Everything built OK
-    } else {
-        echo Build step failed
-        exit 1
-    }
-    fi
+    echo Configuration OK
+    exit 0
 } else {
     echo Configuration step failed
     exit 1
