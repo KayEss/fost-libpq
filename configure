@@ -1,6 +1,8 @@
 #!/bin/bash
-cd `dirname $0`
-svn up .
+set -e
+cd $(dirname $0)
+
+svn co svn://pqxx.org/libpqxx/trunk/ libpqxx
 
 cd libpqxx
 if ./configure --with-tr1=boost
