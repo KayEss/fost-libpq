@@ -1,3 +1,4 @@
+import path ;
 
 project PostgreSQL
     :
@@ -5,25 +6,35 @@ project PostgreSQL
         -<threading>multi # Works around a bug in boost.build
     ;
 
+
 lib libpq-dll ;
-lib libpq-dll : : <file>"C:/Program Files/PostgreSQL/8.3/bin/libpq.dll" <target-os>windows ;
 lib libpq : : <name>pq ;
-lib libpq : libpq-dll : <file>"C:/Program Files/PostgreSQL/8.3/lib/libpq.lib" <target-os>windows ;
+
 
 rule pgdll ( libs * )
 {
     lib $(libs) ;
 
-    local prefix = "C:\\Program Files\\PostgreSQL\\8.3\\bin\\" ;
+    local prefix83 = "C:\\Program Files\\PostgreSQL\\8.3\\bin\\" ;
+    local prefix93 = "C:\\Program Files\\PostgreSQL\\9.3\\bin\\" ;
     local suffix = ".dll" ;
 
     for local curlib in $(libs)
     {
-        local name = $(prefix) $(curlib) $(suffix) ;
+        local name = $(prefix83) $(curlib) $(suffix) ;
+        lib $(curlib) : : <file>$(name:J) <target-os>windows ;
+        local name = $(prefix93) $(curlib) $(suffix) ;
         lib $(curlib) : : <file>$(name:J) <target-os>windows ;
     }
 
     install ../dist/bin : libpq-dll $(libs) ;
 }
-pgdll comerr32 gssapi32 k5sprt32 krb5_32 libiconv2 libintl3 ;
+if [ path.exists "C:/Program Files/PostgreSQL/8.3" ] {
+    pgdll comerr32 gssapi32 k5sprt32 krb5_32 libiconv2 libintl3 ;
+    lib libpq-dll : : <file>"C:/Program Files/PostgreSQL/8.3/bin/libpq.dll" <target-os>windows ;
+    lib libpq : libpq-dll : <file>"C:/Program Files/PostgreSQL/8.3/lib/libpq.lib" <target-os>windows ;
+} else {
+    lib libpq-dll : : <file>"C:/Program Files/PostgreSQL/9.3/bin/libpq.dll" <target-os>windows ;
+    lib libpq : libpq-dll : <file>"C:/Program Files/PostgreSQL/9.3/lib/libpq.lib"  <target-os>windows ;
+}
 
