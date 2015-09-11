@@ -5,7 +5,8 @@ cd $(dirname $0)
 svn co svn://pqxx.org/libpqxx/trunk/ libpqxx
 
 cd libpqxx
-if ./configure --with-tr1=boost
+export CXXFLAGS=-std=c++14
+if ./configure
 then {
     echo Configuration OK
     exit 0
