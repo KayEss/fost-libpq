@@ -2,9 +2,9 @@
 set -e
 cd $(dirname $0)
 
-svn co svn://pqxx.org/libpqxx/trunk/ libpqxx
+rm -rf libpqxx > /dev/null 2> /dev/null
 
-cd libpqxx
+cd pqxx
 export CXXFLAGS=-std=c++14
 if ./configure
 then {
