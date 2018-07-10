@@ -5,7 +5,7 @@ cd $(dirname $0)
 rm -rf libpqxx > /dev/null 2> /dev/null
 
 cd pqxx
-if ./configure CXXFLAGS=-std=c++14
+if ./configure CXXFLAGS=-std=c++17
 then {
     echo Configuration OK
     exit 0
